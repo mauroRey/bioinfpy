@@ -66,8 +66,8 @@ def merge_exons(gene_exon_list):
           
         # array to hold the merged intervals 
         m = [] 
-        s = -10000
-        max = -100000
+        s = -1E4
+        max = -1E5
         for i in range(len(gene_exon_list)): 
             a = gene_exon_list[i] 
             if a[0] > max: 
