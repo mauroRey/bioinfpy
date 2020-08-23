@@ -3,8 +3,8 @@ from collections import Counter
 import numpy as np 
 import os
 
-rosalind_dir = '/media/pulpo/SD/python/Rosalind/Bioinf/'
-
+#rosalind_dir = '/media/pulpo/SD/python/Rosalind/Bioinf/'
+rosalind_dir =  'X:/bioinf/scriptsPy/Rosalind/1-5'
 
 
 
@@ -102,19 +102,15 @@ print (numero_conejos_mensual[0,meses-1])
 # =============================================================================
 
 
-f = open('E:\python\Rosalind\Bioinf/rosalind_cg.txt', 'r')
+s = (open('X:/bioinf/scriptsPy/Rosalind/1-5/rosalind_cg.txt', 'r')).read()
 
-max_gc_name, max_gc_content = '', 0
+genes = s.split(">")[1:]
+gc = []
 
-buf = f.readline().rstrip()
-while buf:
-    seq_name, seq = buf[1:], ''
-    buf = f.readline().rstrip()
-    while not buf.startswith('>') and buf:
-        seq = seq + buf
-        buf = f.readline().rstrip()
-    seq_gc_content = (seq.count('C') + seq.count('G'))/float(len(seq))
-    if seq_gc_content > max_gc_content:
-        max_gc_name, max_gc_content = seq_name, seq_gc_content
+for gene in genes:
+    a = gene.count("C") + gene.count("G")
+    b = gene.count("C") + gene.count("G") + gene.count("A") + gene.count("T")
+    gc.append(float(a)*100/b)
 
-print((max_gc_content * 100))
+print (genes[gc.index(max(gc))][:13])
+print (max(gc))
