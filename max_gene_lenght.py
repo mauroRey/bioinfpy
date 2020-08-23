@@ -55,19 +55,15 @@ def exon_length (line):
         return ([min_temp, max_temp])
 
 
-
-#def check_superpos (gene_position, new_exon):
     
 def merge_exons(gene_exon_list): 
-          
-        # Sorting based on the increasing order  
-        # of the start intervals 
+        
         gene_exon_list.sort(key = lambda x: x[0])  
           
         # array to hold the merged intervals 
         m = [] 
-        s = -1E4
-        max = -1E5
+        s = -1
+        max = -2
         for i in range(len(gene_exon_list)): 
             a = gene_exon_list[i] 
             if a[0] > max: 
@@ -86,6 +82,9 @@ def merge_exons(gene_exon_list):
   
         if max != -100000 and [s, max] not in m: 
             m.append([s, max]) 
+            
+            
+            
         lenght = 0
         for i in range(len(m)): 
             lenght += m[i][1] - m[i][0] + 1
