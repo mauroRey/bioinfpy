@@ -1,5 +1,4 @@
 # %%
-from collections import Counter
 import os
 
 #rosalind_dir = '/media/pulpo/SD/python/Rosalind/Bioinf/'
@@ -15,12 +14,11 @@ rosalind_dir =  'X:/bioinf/scriptsPy/Rosalind/6-10/'
 text_file_hamm = 'rosalind_hamm.txt'
 full_directory_2 = os.path.join(rosalind_dir, text_file_hamm)
 
-fh = (open(full_directory_2, "r")).read()
+DNA = (open(full_directory_2, "r")).read().split('\n')
 
 mismatch_cnt = 0
 
 
-DNA = fh.split('\n')
 dna1 = DNA[0]
 dna2 = DNA[1]
 
@@ -48,9 +46,13 @@ percentage = ((a*((a-1) + 2*(b+c))) + (0.75*b*(b-1)) + (b*c)) / (total*(total-1)
 
 # %%
 # =============================================================================
-#  ----- ejercicio 8 strand complementario de DNA -----
+#  ----- ejercicio 8 RNa a proteina -----
 # =============================================================================
 import re
+
+text_file_hamm = 'rosalind_prot.txt'
+full_directory_2 = os.path.join(rosalind_dir, text_file_hamm)
+
 
 codones = {
     'UUU': 'F',      'CUU': 'L',      'AUU': 'I',      'GUU': 'V',
@@ -71,8 +73,8 @@ codones = {
     'UGG': 'W',      'CGG': 'R',      'AGG': 'R',      'GGG': 'G'
 }
 
-RNA = 'AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA'
 
+RNA = (open(full_directory_2, "r")).read()
 RNA_codons = re.findall('...', RNA)
 proteina = ''
 
@@ -80,3 +82,50 @@ proteina = ''
 for codon in RNA_codons:
     if codones.get(codon) == 'Stop': break
     proteina += codones.get(codon)
+    
+    
+    
+# %%
+# =============================================================================
+#  ----- ejercicio 9 Finding mottifs in DNA -----
+# =============================================================================    
+text_file_subs = 'rosalind_subs.txt'
+full_directory_2 = os.path.join(rosalind_dir, text_file_subs)
+
+sequences = (open(full_directory_2, "r")).read().split('\n')
+
+
+DNA = sequences[0]
+mottifs = sequences[1]    
+
+mottifs_len = len(mottifs)
+
+pos = ''
+for i, n in enumerate(DNA):
+    if(DNA[i:i+mottifs_len] != mottifs): continue
+    else: pos += str(i+1) + ' '
+    
+    
+print (pos)
+
+
+
+#%%
+# =============================================================================
+#  ----- ejercicio 4 crecimiento de conejos con mortalidad dinamica-----
+# =============================================================================
+
+
+max_months = 6
+time_to_die = 3
+
+
+def fib(n,k=1):
+  ages = [1] + [0]*(k-1)
+  for i in range(n-1):
+      ages = [sum(ages[1:])] + ages[:-1]
+      
+  return sum(ages)
+
+
+print(fib(max_months,time_to_die))  # Prints 4

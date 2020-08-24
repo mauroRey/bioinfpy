@@ -80,19 +80,17 @@ print (transcripto_final)
 # =============================================================================
 
 
-meses = 28
-crias = 5
-
-numero_conejos_mensual = np.zeros(shape=(1,meses))
-numero_conejos_mensual[0,0]=1
-numero_conejos_mensual[0,1]=1 
+meses = 6
+crias = 2
 
 
-for n in range(meses-2):
-    numero_conejos_mensual[0,n+2] = (numero_conejos_mensual[0,n+1] + \
-                                     numero_conejos_mensual[0,n]*crias)
-  
-print (numero_conejos_mensual[0,meses-1])
+def fib(n, k):
+    a, b = 1, 1
+    for i in range(2, n):
+        a, b = b, k*a + b
+    return b
+
+print (fib(meses, crias))
 
 
 
