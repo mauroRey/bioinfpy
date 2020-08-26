@@ -1,13 +1,11 @@
 import os
-import re
-
 #rosalind_dir = '/media/pulpo/SD/bioinf/Rosalind/Bioinf/'
 rosalind_dir =  '/media/pulpo/DB/bioinf/scriptsPy/Rosalind/11-15/'
 
 
 # %%
 # =============================================================================
-#  ----- ejercicio 6 Contador de mismatch -----
+#  ----- ejercicio 11 making a consensus -----
 # =============================================================================
 
 text_file_hamm = 'rosalind_cons.txt'
@@ -73,3 +71,5 @@ for k, v in profile.items():
 		print(profile[k][i], end = ' ')
 	print('\n')
     
+
+
