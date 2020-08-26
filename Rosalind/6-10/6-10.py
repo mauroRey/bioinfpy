@@ -5,7 +5,6 @@ import os
 rosalind_dir =  'X:/bioinf/scriptsPy/Rosalind/6-10/'
 
 
-
 # %%
 # =============================================================================
 #  ----- ejercicio 6 Contador de mismatch -----
