@@ -73,3 +73,38 @@ for k, v in profile.items():
     
 
 
+
+
+
+
+
+#%%
+ # =============================================================================
+#  ----- ejercicio 13 offspring calculator -----
+# =============================================================================
+
+data = '19578 19088 16430 17219 18053 17990'
+
+data = data.split()
+    
+def percen_dom_phen (couple):   
+    couples = {
+        1: 1*2,       # AA-AA
+        2: 1*2,       # AA-Aa
+        3: 1*2,       # AA-aa 
+        4: (3/4)*2,   # Aa-Aa
+        5: (1/2)*2,   # Aa-aa
+        6: 0/6*2        # aa-aa 
+    }
+    print(couples[couple])
+    return couples[couple]
+    
+
+prob = 0
+for i, n in enumerate(data):
+    print(i)
+    print(n)
+    print('----')
+    prob += percen_dom_phen(float(i)+1)*int(n)
+
+print(prob)
