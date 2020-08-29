@@ -73,9 +73,39 @@ for k, v in profile.items():
     
 
 
+#%%
+ # =============================================================================
+#  ----- ejercicio 12 nodes -----
+# =============================================================================
+import os
+rosalind_dir= "X:/bioinf/scriptsPy/Rosalind/11-15/"
+textfile = 'rosalind_grph.txt'
+full_directory = os.path.join(rosalind_dir, textfile)
 
+fh = (open(full_directory))
 
+reads = dict()
+tempid = ''
+for lines in fh:
+    if lines.startswith('>'):
+        tempid = lines[1:14]
+        reads[tempid] = ''
+    else:
+        reads[tempid] += lines.strip()
 
+for k1, v1 in reads.items():
+    for k2, v2 in reads.items():
+        if (v1[-3:] == v2[:3]) and (k1 != k2):
+            print (k1, k2)
+
+''' USANDO REGEX ARMO DICT
+with open(sys.argv[1], 'rU') as f:
+  data = f.read().replace("\n","")
+
+pattern = re.compile(r'>(?P<label>Rosalind_\d{4})\s*(?P<bases>[ACGT\s]+)')
+
+dnastrings = collections.OrderedDict(pattern.findall(data))
+'''
 
 
 #%%
