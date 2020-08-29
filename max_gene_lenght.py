@@ -113,12 +113,12 @@ def get_exons(gene_ID):
 ############    main:    ########
 #################################
                 
-                
+                    
 get_exons(gene_ID)
 
 for ID in genes:
      max_lenght = merge_exons(genes.get(ID))
-     fo.write((str(ID) + ' ' + str(max_lenght) + '\n')) 
+     fo.write((str(ID) + '\t' + str(max_lenght) + '\n')) 
      
      
 fh.close()
@@ -128,4 +128,3 @@ print("--- %s seconds ---" % (time.time() - start_time))
 
 
 #%%%
-

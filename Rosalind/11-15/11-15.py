@@ -102,9 +102,6 @@ def percen_dom_phen (couple):
 
 prob = 0
 for i, n in enumerate(data):
-    print(i)
-    print(n)
-    print('----')
     prob += percen_dom_phen(float(i)+1)*int(n)
 
 print(prob)
