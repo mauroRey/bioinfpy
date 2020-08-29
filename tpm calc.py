@@ -30,10 +30,8 @@ fo = open(tpmFile, 'a')
 genes = dict()
 rpkTot = 0
 scaleFactor = 0
-tot = 0.0 
 '''
 RPG LENGHT RPKM TPM
-#140.7344     320.7167
 '''
 
 totRC = 0
@@ -71,10 +69,11 @@ scaleFactor = 1/totrpk * 1E6
 fo.write('#Gene ID' + '\t' + 'reads per gene' + '\t' + 'lenght' + '\t' + 'RPK'
          +'\n' + 'TPM' +'\n') 
 for gene_id in genes:
-        
+            
     tpm = scaleFactor * genes.get(gene_id)[3]
     genes[gene_id][3] = tpm
-    fo.write((str(gene_id) + '\t' + str(genes[gene_id][0]) + '\n'))  
+    fo.write((str(gene_id) + '\t' + str(genes[gene_id][0]) + '\t' + str(genes[gene_id][1]) + '\t'
+                       + str(genes[gene_id][2]) + '\t' + str(genes[gene_id][3]) + '\n'))
 
 fhRPG.close()
 fhLenght.close()
