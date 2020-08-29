@@ -37,14 +37,16 @@ RPG LENGHT RPKM TPM
 totRC = 0
 totrpk =0
 
+#lleno el dict con los genes id y les cargo el rpg a cada gen
 for lines in fhRPG:
     if lines.startswith('N_'): continue
     line = lines.split()
     genes[line[0]] = [int(line[2])]
     totRC += int(line[2])
     
-    
-for lines in fhLenght: #rpkM = geneRC / ( geneLength/1000 * totRC/1,000,000 )
+
+#cargo los largo a los dict, calculo rpkm y rpk. Saco total rpk    
+for lines in fhLenght: #rpkm = geneRC / ( geneLength/1000 * totRC/1,000,000 )
     line = lines.split()
     try: genes[line[0]].append(int(line[4]))
     except : continue
@@ -65,9 +67,11 @@ for lines in fhLenght: #rpkM = geneRC / ( geneLength/1000 * totRC/1,000,000 )
     
 scaleFactor = 1/totrpk * 1E6
 
-
+#armo el header
 fo.write('#Gene ID' + '\t' + 'reads per gene' + '\t' + 'lenght' + '\t' + 'RPK'
          +'\n' + 'TPM' +'\n') 
+
+#calculo tpm y grabo al archivo
 for gene_id in genes:
             
     tpm = scaleFactor * genes.get(gene_id)[3]
