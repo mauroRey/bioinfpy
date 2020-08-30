@@ -2,75 +2,25 @@ import os
 #rosalind_dir = '/media/pulpo/SD/bioinf/Rosalind/Bioinf/'
 rosalind_dir =  '/media/pulpo/DB/bioinf/scriptsPy/Rosalind/11-15/'
 
-
-# %%
+#%%
 # =============================================================================
-#  ----- ejercicio 11 making a consensus -----
+#  ----- ejercicio 11 crecimiento de conejos con mortalidad dinamica-----
 # =============================================================================
 
-text_file_hamm = 'rosalind_cons.txt'
-full_directory = os.path.join(rosalind_dir, text_file_hamm)
 
-fh = (open(full_directory))
-
+max_months = 6
+time_to_die = 3
 
 
-sequences = []	
-temp_line = ''
-for lines in fh:
-	if (lines.startswith('>') is False):
-		temp_line += lines.rstrip()
-	if (temp_line != '' and lines.startswith('>')):
-		sequences.append(temp_line)
-		temp_line = ''
-sequences.append(temp_line)
-del temp_line
-
-len_seq = len(sequences[0])
-
-profile = {
-	'A': [],
-	'C': [],
-	'G': [],
-	'T': []
-}
+def fib(n,k=1):
+  ages = [1] + [0]*(k-1)
+  for i in range(n-1):
+      ages = [sum(ages[1:])] + ages[:-1]
+      
+  return sum(ages)
 
 
-for n in range(len_seq): 
-	profile['A'].append(0)
-	profile['C'].append(0)
-	profile['G'].append(0)
-	profile['T'].append(0)
-
-
-
-for seq in sequences:
-	for i, nit_base in enumerate(seq):
-		profile[nit_base][i] += 1
-
-
-
-def return_nit_bas(bases):
-	bases.sort(key = lambda x: x[0], reverse = True)
-	print (bases)
-	return bases[0][1]
-
-
-
-consensus = ''
-for i in range(len_seq):
-	consensus += return_nit_bas([[profile['A'][i], 'A'], [profile['C'][i], 'C'],
-	[profile['G'][i], 'G'], [profile['T'][i], 'T']])
-
-
-print(consensus)
-
-for k, v in profile.items():
-	print(k, end = ': ')
-	for i in range(len_seq):
-		print(profile[k][i], end = ' ')
-	print('\n')
-    
+print(fib(max_months,time_to_die))  # Prints 4
 
 
 #%%
@@ -109,7 +59,7 @@ dnastrings = collections.OrderedDict(pattern.findall(data))
 
 
 #%%
- # =============================================================================
+# =============================================================================
 #  ----- ejercicio 13 offspring calculator -----
 # =============================================================================
 
@@ -135,3 +85,53 @@ for i, n in enumerate(data):
     prob += percen_dom_phen(float(i)+1)*int(n)
 
 print(prob)
+
+
+
+
+
+#%%
+# =============================================================================
+#  ----- ejercicio 13 common sequence  -----
+# =============================================================================
+import os
+rosalind_dir= "/media/pulpo/DB/bioinf/scriptsPy/Rosalind/11-15/"
+textfile = 'rosalind_lcsm.txt'
+full_directory = os.path.join(rosalind_dir, textfile)
+fh = (open(full_directory))
+sequences = []  
+temp_line = ''
+
+for lines in fh:
+    if (lines.startswith('>') is False):
+        temp_line += lines.rstrip()
+    if (temp_line != '' and lines.startswith('>')):
+        sequences.append(temp_line)
+        temp_line = ''
+sequences.append(temp_line)
+del temp_line
+
+
+def longest_common_substring(s1, s2):
+   m = [[0] * (1 + len(s2)) for i in range(1 + len(s1))]
+   longest, x_longest = 0, 0
+   for x in range(1, 1 + len(s1)):
+       for y in range(1, 1 + len(s2)):
+           if s1[x - 1] == s2[y - 1]:
+               m[x][y] = m[x - 1][y - 1] + 1
+               if m[x][y] > longest:
+                   longest = m[x][y]
+                   x_longest = x
+           else:
+               m[x][y] = 0
+   return s1[x_longest - longest: x_longest]
+
+
+temp_seq = ''
+temp_seq2 = ''
+for i, seq in enumerate(sequences):
+	if i <= 0: 
+		temp_seq = seq
+		continue
+	print (temp_seq)
+	temp_seq = longest_common_substring(temp_seq, seq)
