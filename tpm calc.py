@@ -30,12 +30,11 @@ fo = open(tpmFile, 'a')
 genes = dict()
 rpkTot = 0
 scaleFactor = 0
+totRC = 0
+totrpk =0
 '''
 RPG LENGHT RPKM TPM
 '''
-
-totRC = 0
-totrpk =0
 
 #lleno el dict con los genes id y les cargo el rpg a cada gen
 for lines in fhRPG:
@@ -43,7 +42,7 @@ for lines in fhRPG:
     line = lines.split()
     genes[line[0]] = [int(line[2])]
     totRC += int(line[2])
-    
+ fhRPG.close()   
 
 #cargo los largo a los dict, calculo rpkm y rpk. Saco total rpk    
 for lines in fhLenght: #rpkm = geneRC / ( geneLength/1000 * totRC/1,000,000 )
@@ -51,24 +50,21 @@ for lines in fhLenght: #rpkm = geneRC / ( geneLength/1000 * totRC/1,000,000 )
     try: genes[line[0]].append(int(line[4]))
     except : continue
 
-    if(genes.get(line[0]) == 'lola'):
-        print(genes.get(line[0])[1])
-        
     rpkm = float(genes.get(line[0])[0]) / (float(genes.get(line[0])[1]/1000) 
                                            * totRC/1E6)
+   
     #rpk = (geneRC/(genelenght/1000))
-    
     rpk = (genes.get(line[0])[0]) / ((genes.get(line[0])[1])/1000)
     
     genes[line[0]].append(rpkm)
     genes[line[0]].append(rpk)
     totrpk += rpk
 
-    
+fhLenght.close()   
 scaleFactor = 1/totrpk * 1E6
 
 #armo el header
-fo.write('#Gene ID' + '\t' + 'reads per gene' + '\t' + 'lenght' + '\t' + 'RPK'
+fo.write('#ID' + '\t' + 'RPG' + '\t' + 'lenght' + '\t' + 'RPK'
          +'\n' + 'TPM' +'\n') 
 
 #calculo tpm y grabo al archivo
@@ -79,6 +75,6 @@ for gene_id in genes:
     fo.write((str(gene_id) + '\t' + str(genes[gene_id][0]) + '\t' + str(genes[gene_id][1]) + '\t'
                        + str(genes[gene_id][2]) + '\t' + str(genes[gene_id][3]) + '\n'))
 
-fhRPG.close()
-fhLenght.close()
+
+
 fo.close()

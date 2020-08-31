@@ -92,7 +92,7 @@ print(prob)
 
 #%%
 # =============================================================================
-#  ----- ejercicio 13 common sequence  -----
+#  ----- ejercicio 14 common sequence  -----
 # =============================================================================
 import os
 rosalind_dir= "/media/pulpo/DB/bioinf/scriptsPy/Rosalind/11-15/"
@@ -133,5 +133,59 @@ for i, seq in enumerate(sequences):
 	if i <= 0: 
 		temp_seq = seq
 		continue
-	print (temp_seq)
 	temp_seq = longest_common_substring(temp_seq, seq)
+    
+    
+''' USANDO BINARY SEARCH
+def substr_in_all(arr, part):
+  for dna in arr:
+    if dna.find(part)==-1:
+      return False
+  return True
+
+def common_substr(arr, l):
+  first = arr[0]
+  for i in range((len(first)-l+1)):
+
+    part = first[i:i+l]
+    if substr_in_all(arr, part):
+      return part
+  return ""
+
+def longest_common_substr(arr):
+  l = 0; r = len(arr[0])
+
+  while l+1<r:
+    mid = int((l+r) / 2)
+    if common_substr(arr, mid)!="":
+      l=mid
+    else:
+      r=mid
+
+  return common_substr(arr, l)
+
+
+for lines in fh:
+    if (lines.startswith('>') is False):
+        temp_line += lines.rstrip()
+    if (temp_line != '' and lines.startswith('>')):
+        sequences.append(temp_line)
+        temp_line = ''
+sequences.append(temp_line)
+del temp_line
+
+print(longest_common_substr(sequences))
+'''    
+    
+#%%
+
+# =============================================================================
+#  ----- ejercicio 15 mendels second law  -----
+# =============================================================================
+
+
+k = 6                                                                       
+N = 17                                                                          
+
+from scipy.stats import binom
+print(1 - binom.cdf(N - 1, 2 ** k, 0.25))
